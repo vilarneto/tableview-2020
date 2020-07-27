@@ -14,7 +14,8 @@ class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var houseLabel: UILabel!
     @IBOutlet weak var picture: UIImageView!
-    
+    @IBOutlet weak var aliasesStackView: UIStackView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,6 +36,21 @@ class CharacterTableViewCell: UITableViewCell {
             self.nameLabel.textColor = .red
         } else {
             self.nameLabel.textColor = .black
+        }
+
+        // Limpar a Stack View (pra não vir lixo durante o reuso da célula)
+        for label in self.aliasesStackView.arrangedSubviews {
+            label.removeFromSuperview()
+        }
+
+        // Preencher com as labels relevantes para este personagem
+        for alias in character.aliases {
+            // Vou dar um jeito de criar uma label dentro da Stack View
+            // contendo a string da variável “alias”
+            let aliasLabel = UILabel()
+
+            aliasLabel.text = alias
+            self.aliasesStackView.addArrangedSubview(aliasLabel)
         }
     }
 
